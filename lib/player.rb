@@ -5,11 +5,41 @@ class Player
   def initialize(name, symbol)
     @name = name
     @symbol = symbol
-    @@player_list << name
-    #@player_number = @@player_list.each
-    # player number = index in the player list
+    @player_number = 1
+    @@player_list << self
+    @player_number = @@player_list.find_index do |player| 
+      player.name == @name
+    end + 1
   end
 
-  def 
+  def self.remove_one_player(delete_name)
+    index_to_delete = @@player_list.find_index do |player|
+      player.name == delete_name
+    end
+
+    @@player_list.delete_at(index_to_delete)
+  end
+
+  def self.reset_players
+    @@player_list = []
+  end
+
+  def self.player_list
+    @@player_list
+  end
+
+  def self.player_names
+    self.player_list.each do |player|
+      puts "#{player.name} is playing"
+    end
+  end
+
 
 end
+
+player_one = Player.new("bob", "X")
+player_two = Player.new("mary", "O")
+player_three = Player.new("Suzy", "P")
+Player.remove_one_player("mary")
+Player.reset_players
+Player.player_names
