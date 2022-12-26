@@ -14,9 +14,11 @@ class Board
 
     # if 3 rows and 3 colummns
     # [nil,nil,nil]
-    # [[nil,nil,nil], (0,0)
-    # [nil,nil,nil],  (1,0)
-    # [nil,nil,nil]]  (2,0)
+    # [[nil,nil,nil], (0,0) (C,0) board.length = 3 65 + (board.length)3 - 1 67
+    # base = C.ord
+    # next is 
+    # [nil,nil,nil],  (1,0) (B,0) 66
+    # [nil,nil,nil]]  (2,0) (A,0) 
   end
 
   def board
@@ -46,6 +48,20 @@ class Board
 
   def puts_display
     puts display
+  end
+
+  def update(row, column, player_name)
+    base = @number_of_rows - 1 + 65 # 67 for C
+
+    letter_row = row.ord # "A".ord 65 
+
+    if (letter_row >= 65 && letter_row <= 90) && (letter_row < base)
+      update_row = base - letter_row #67 - 65  = 2 
+    elsif (letter_row >= 97 || letter_row <= 120)
+      update_row = letter_row - 32  #97 - 67 - 32
+   
+    @board[]
+    # Update logic to how to make changes to game array! 
   end
 
 end
