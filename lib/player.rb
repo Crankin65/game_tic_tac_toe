@@ -28,11 +28,21 @@ class Player
     @@player_list
   end
 
-  def self.player_names
+  def self.player_names_and_symbols
     self.player_list.each do |player|
-      puts "#{player.name} is playing"
+      puts "#{player.name} is playing and is using '#{player.symbol}' as their symbol"
     end
   end
+  
+  def self.player_names
+    name_array = []
+    self.player_list.map do |player|
+      name_array << player.name
+    end
+    name_array
+  end
+
+
 
 
 end
@@ -43,4 +53,4 @@ player_two = Player.new("mary", "O")
 # Player.remove_one_player("mary")
 # Player.reset_players
 # Player.player_names
-p Player.player_list.length
+p Player.player_names
