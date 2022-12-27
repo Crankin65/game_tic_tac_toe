@@ -79,8 +79,51 @@ class Board
       puts "There is no #{row}#{update_column} on this board, please try again"
     end
     
-   
+  end
+  
+  def requested_rows
+    puts "How many rows would you like? (There's a minimum of three)"
+  
+    rows = gets.chomp.to_i
+  
+    until rows >= 3 && rows.integer?
+      puts "Please enter a number that's greater than or equal to 3"
+      rows = gets.chomp.to_i
+    end
 
+    rows
+  end
+
+  def requested_columns
+    puts "How many columns would you like? (There's a minimum of three)"
+  
+    columns = gets.chomp.to_i
+  
+    until columns >= 3 && columns.integer?
+      puts "Please enter a nubmer greater than or equal to 3"
+      columns = gets.chomp.to_i
+    end
+
+    columns
+  end
+
+  def winning_condition
+    puts "How many in a row will win the game? The minimum is 3. The maximum is the number of rows or columns you have (the highest of either)"
+
+    $winning_conidition = gets.chomp.to_i
+
+    until $winning_condition.integer? && ($winning_condition <= requested_columns || $winning_condition <= requested_rows) && $winning_condition >= 3
+      $winning_condition
+    else
+      puts "Please put a number that is greater than 3, and less than or equal to the highest number (between rows or columns)"
+    end
+  end
+
+  def create_board
+    requested_rows
+    requested_columns
+    @game_board = Board.new(requested_rows ,requested_columns, winning_condition)
+    @gameboard.puts_display
   end
   
 

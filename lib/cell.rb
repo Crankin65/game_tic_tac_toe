@@ -1,8 +1,6 @@
 class Cell
   attr_reader :row, :column, :board, :vertical_neighbors, :horizontal_neighbors, :left_diagonal_neighbors, :right_diagonal_neighbors
 
-  @@winning_number_in_a_row = 2
-
   def initialize(row,column,board)
     @row = row
     @column = column
@@ -15,6 +13,10 @@ class Cell
 
   def symbol
     @board[row][column]
+  end
+
+  def winning_number_in_a_row 
+    $winning_number_in_a_row ||= 3
   end
 
   def down
@@ -214,16 +216,17 @@ class Cell
   end
 
 
+
   def won?
     vertical_traversal
     horizontal_traversal
     diagonal_left_traversal
     diagonal_right_traversal
 
-    return true if vertical_neighbors >= @@winning_number_in_a_row 
-    return true if horizontal_neighbors >= @@winning_number_in_a_row
-    return true if left_diagonal_neighbors >= @@winning_number_in_a_row
-    return true if right_diagonal_neighbors >= @@winning_number_in_a_row
+    return true if vertical_neighbors >= $winning_number_in_a_row 
+    return true if horizontal_neighbors >= $winning_number_in_a_row
+    return true if left_diagonal_neighbors >= $winning_number_in_a_row
+    return true if right_diagonal_neighbors >= $winning_number_in_a_row
    
     false
   end
