@@ -97,18 +97,20 @@ class Player
       puts "Thank You"
       
     elsif response == "subtract"
-      puts "The current player list is #{@@player_list.map {|player| player.name}.join(", ") + "."
+      
+      puts "The current player list is " + @@player_list.map {|player| player.name}.join(", ") + "."
   
       puts "Which player should be deleted? (Enter 'back' or 'exit' if you'd go go back)"
   
-      response = $stdin.gets.chomp.downcase
+      delete_response = $stdin.gets.chomp.downcase
       
-      if @@player_list.any? {|player| response == player.name}
-        Player.remove_one_player(response)
-      elsif (response == "back") || (response == "exit")
+      if @@player_list.any? {|player| delete_response == player.name}
+        Player.remove_one_player(delete_response)
+
+      elsif (delete_response == "back") || (delete_response == "exit")
         validate_players
       else
-        puts "That's not a player in this game"
+         puts "That's not a player in this game"
       end
   
     elsif response == "add"
@@ -120,17 +122,14 @@ class Player
       validate_players
     end
   
-  
-  
-  
   end
 
 end
 
-player_one = Player.new("bob", "X")
-player_two = Player.new("mary", "O")
-# player_three = Player.new("Suzy", "P")
-# Player.remove_one_player("mary")
-# Player.reset_players
-# Player.player_names
-p Player.player_names
+# player_one = Player.new("bob", "X")
+# player_two = Player.new("mary", "O")
+# # player_three = Player.new("Suzy", "P")
+# # Player.remove_one_player("mary")
+# # Player.reset_players
+# # Player.player_names
+# p Player.player_names
