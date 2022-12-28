@@ -4,7 +4,7 @@ class Board
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
     @number_of_columns = number_of_columns
-    @game_condition = 1
+    @game_condition = active
   end
 
   def game_array 
@@ -78,6 +78,10 @@ class Board
     elsif (number_row > base) || (update_column > @number_of_columns)
       puts "There is no #{row}#{update_column} on this board, please try again"
     end
+
+    if @board.none? {|cell| cell = nil}
+      @game_condition = "tie"
+    end
     
   end
   
@@ -122,7 +126,7 @@ class Board
   def create_board
     requested_rows
     requested_columns
-    @game_board = Board.new(requested_rows ,requested_columns, winning_condition)
+    @game_board = Board.new(requested_rows ,requested_columns)
     @gameboard.puts_display
   end
   

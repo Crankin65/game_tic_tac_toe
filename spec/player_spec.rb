@@ -1,4 +1,5 @@
 require './lib/player'
+require 'stringio'
 
 describe Player do
 
@@ -13,7 +14,7 @@ describe Player do
     end
   end
 
-  describe "#player_list.length"
+  describe "#self.player_list.length"
     it "returns the total number of players playing"
       expect(Player.player_list.length).to eql(2)
     end
@@ -30,6 +31,17 @@ describe Player do
     it "removes all players from player list"
       Player.reset_players
       expect(Player.player_list.length).to eql(0)
+    end
+  end
+
+  describe "self.player_names"
+    it "creates an array of player names"
+     expect(Player.player_names).to eql(["Sam","Dean"])
+    end
+  end
+
+  describe "create_player"
+    it "creates a new player"
     end
   end
 

@@ -95,7 +95,6 @@ class Player
   
     elsif response == "yes"
       puts "Thank You"
-      Player.player_list.shuffle!
       
     elsif response == "subtract"
       puts "The current player list is #{@@player_list.map {|player| player.name}.join(", ") + "."
