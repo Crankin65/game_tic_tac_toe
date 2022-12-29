@@ -104,20 +104,23 @@ def turn
 
   puts @game_board.display
 
-  while @turn_order <= Player.player_list.length && (@game.game_condition != "done" ||@game.game_condition != "tie")
-    puts "It's #{Player.player_list[@turn_order].name}'s turn"
-   
-    @game.cell_selection(Player.player_list[@turn_order].symbol)
+  if (@game.game_condition != "done" || @game.game_condition != "tie")
+    while @turn_order <= Player.player_list.length && 
+      puts "It's #{Player.player_list[@turn_order].name}'s turn"
+    
+      @game.cell_selection(Player.player_list[@turn_order].symbol)
 
-    @turn_order += 1
-    @game.puts_display
-    @game.tie_check
+      @turn_order += 1
+      @game.puts_display
+      puts "The game is currenly #{@game.game_condition}"
+      @game.tie_check
 
-    if @turn_order == Player.player_list.length
-      @turn_order = 0
+      if @turn_order == Player.player_list.length
+        @turn_order = 0
+      end
+
+
     end
-
-
   end
 
   if @game.game_condition == "done"
@@ -156,6 +159,20 @@ def requested_columns
   columns
 end
 
+def winning_condition
+  puts "How many in a row will win the game? The minimum is 3. The maximum is the number of rows or columns you have (the highest of the two)"
+
+  winning_condition = gets.chomp.to_i
+
+  until winning_condition.integer? && (winning_condition <= @game.number_of_rows || winning_condition <= @game.number_of_columns) && winning_condition >= 3
+
+    puts "Please put a number that is greater than 3, and less than or equal to the highest number (between rows or columns)"
+  end
+
+  $winning_condition = winning_condition
+end
+
+
 
 def create_board(rows,columns)
   @game = Board.new(rows ,columns)
@@ -163,5 +180,6 @@ def create_board(rows,columns)
 end
 
 create_board(requested_rows,requested_columns)
+winning_condition
 game_start
 

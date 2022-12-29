@@ -1,5 +1,5 @@
 class Board
-  attr_accessor :rows, :columns, :number_of_rows, :number_of_columns, :winning_condition
+  attr_accessor :rows, :columns, :number_of_rows, :number_of_columns, :winning_condition, :game_condition
 
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
@@ -72,6 +72,12 @@ class Board
 
       if board[update_row][update_column] == nil
         update_method(update_row, update_column, symbol)
+        recent_move = Cell.new(update_row, update_column ,@board)
+
+        if recent_move.won? 
+          @game_condition = "done"
+        end
+    
       else
         puts "#{response[0]}#{reponse[1]} is taken"
         @game.cell_selection(Player.player_list[@turn_order].symbol)
@@ -82,11 +88,7 @@ class Board
       cell_selection
     end
     
-    recent_move = Cell.new(update_row, update_column ,@board)
-    if recent_move.won? 
-      @game_condition = "done"
-    end
-
+   
   end
 
 
@@ -95,7 +97,7 @@ class Board
   end
 
   def tie_check
-    if @board.none? {|cell| cell = nil}
+    if @board.all? {|cell| cell != nil}
       @game_condition = "tie"
     end
   end
