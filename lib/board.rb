@@ -52,6 +52,56 @@ class Board
     puts display
   end
 
+  def cell_selection 
+    puts "What cell would you like to put your symbol?"
+
+    
+
+    until (response[0].ord >= 65 && response [0] <= 90) ||
+      (response[0].ord >= 97 && response[0].ord <= 120)
+      puts "Sorry, that's not a valid"
+      reponse = $stdin.gets.chomp.split(' ')
+    end
+
+    base = @number_of_rows - 1 + 65
+    update_row = response[0].ord
+    update_column = response[1] - 1
+
+    if (update_row >= 65 && update_row <= 90)
+     update_row #A = 65
+    elsif (update_row >= 97 && update_row <= 120)
+      update_row = update_row - 32 # "a" = 97 - 32 = 65
+    end
+
+    if update_row <= base
+      update_row = base - update_row
+
+      if @board[update_row][update_column] == nil
+        update_method(update_row, update_column, symbol)
+      else
+        puts "#{row}#{update_column} is taken"
+        cell_selection
+      end
+
+    elsif (number_row > base) || (update_column > @number_of_columns)
+      puts "There is no #{row}#{update_column} on this board, please try again"
+      cell_selection
+    end
+    
+
+  end
+
+
+  def update_method(row,column,symbol)
+    @board[row][column] = symbol
+  end
+
+  def tie_check
+    if @board.none? {|cell| cell = nil}
+      @game_condition = "tie"
+    end
+  end
+
   def update(row, column, symbol)
     base = @number_of_rows - 1 + 65 # 67 for C/ 72
 
@@ -69,8 +119,8 @@ class Board
     if number_row <= base
       update_row = base - number_row #67 - 65  = 2 72-65 = 7
 
-      if board[update_row][update_column] == nil
-        board[update_row][update_column] = symbol
+      if @board[update_row][update_column] == nil
+        @board[update_row][update_column] = symbol
       else
         puts "#{row}#{update_column} is taken"
       end

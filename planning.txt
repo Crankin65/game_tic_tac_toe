@@ -15,17 +15,44 @@ board display method
  
  Make nested array 
 
-    elements.each_with_index {|element, index|
-      next_element = elements[index+1]
-      next_element + number of columns
-
-
-board win condition 
   |something|something|something| [0,0], [0,1], [0,2]
   |something|something|something| [1,0], [1,1], [1,2]
   |something|something|something| [2,0], [2,1], [2,2]
 
-    make each row/column a variable? 
-    
-    What's the relationship between each cell? 
+
+
+
+board win condition 
+  
+  Should I got neighbors route? Or .uniq count? 
+
+Potential board display 
+
+|7|8|9| 
+|4|5|6| 
+|X|2|3| 
+
+Pros: Easiest to implement, clear to see cells
+Cons: Difficult to assess win/lose consitions visually
+
+C| | | | 
+B| | | |
+A| | | |
+  1 2 3
+
+Pros: Cleanest approach, simliar strcuture to chess (familiar)
+Cons: Would want to limit apporach to 26 (for columns)
+
+| | | |  |7|8|9| 
+| | | |  |4|5|6| 
+| | | |  |1|2|3| 
+
+Pros: Second easieset to implement and cleaner than first approach
+Cons: Can be diffiuclt to use once board gets too high
+
+
+testing
+  board display
+  cell win
+  player symbols,wins, number of players
 
