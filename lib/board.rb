@@ -50,7 +50,7 @@ class Board
 
     response = $stdin.gets.chomp.split('')
     if response.length >= 3
-      # response[]
+     response[1] = response [1] + response[2]
     end
 
     until (response[0].ord >= 65 && response[0].ord <= 90) ||
@@ -73,8 +73,8 @@ class Board
       if board[update_row][update_column] == nil
         update_method(update_row, update_column, symbol)
       else
-        puts "#{row}#{update_column} is taken"
-        cell_selection
+        puts "#{response[0]}#{reponse[1]} is taken"
+        @game.cell_selection(Player.player_list[@turn_order].symbol)
       end
 
     elsif (update_row > base) || (update_column > @number_of_columns)
@@ -82,6 +82,10 @@ class Board
       cell_selection
     end
     
+    recent_move = Cell.new(update_row, update_column ,@board)
+    if recent_move.won? 
+      @game_condition = "done"
+    end
 
   end
 
@@ -168,11 +172,9 @@ class Board
     $winning_condition = winning_condition
   end
 
-  def create_board
-    requested_rows
-    requested_columns
-    @game_board = Board.new(requested_rows ,requested_columns)
-    @gameboard.puts_display
+  def create_board(rows,columns)
+    @game = Board.new(rows ,columns)
+    @game.puts_display
   end
   
 

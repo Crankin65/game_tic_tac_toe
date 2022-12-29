@@ -30,7 +30,7 @@ class Player
 
   def self.player_names_and_symbols
     self.player_list.each do |player|
-      puts "#{player.name} is playing and is using '#{player.symbol}' as their symbol."
+      puts "#{player.name} is playing and is using '#{player.symbol}' as their symbol. '\n'"
     end
   end
   
