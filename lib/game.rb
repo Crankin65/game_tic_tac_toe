@@ -31,8 +31,8 @@ class Game
     puts "How many players will be playing?"
     total_players = gets.chomp.to_i
 
-    until total_players != 0
-      puts "Please enter a number larger than 0"
+    until total_players != 1
+      puts "Please enter a number larger than 1"
       total_players = gets.chomp.to_i
     end
 
@@ -44,17 +44,19 @@ class Game
   def validate_players
     Player.player_names_and_symbols
 
-    puts "Are those the correct players and symbols? Yes/No/Add/Subtract '\n'"
+    puts "Are those the correct players and symbols? Yes/No/Add/Subtract"
 
     response = gets.chomp.downcase
 
     if response.downcase == "no"
       Player.reset_players
       add_players
+      validate_players
 
     elsif Player.player_list == [] && response.downcase == "yes"
       puts "There are not any players"
       add_players
+      validate_players
 
     elsif response.downcase == "yes"
       puts "Thank You"
@@ -67,8 +69,10 @@ class Game
 
       delete_response = $stdin.gets.chomp.downcase
       
-      if @@player_list.any? {|player| delete_response == player.name}
+      if Player.player_list.any? {|player| delete_response == player.name}
         Player.remove_one_player(delete_response)
+
+        validate_players
 
       elsif (delete_response.downcase == "back") || (delete_response.downcase == "exit")
         validate_players
@@ -103,14 +107,11 @@ class Game
     
       update_game_process(board)
       
-
       recent_symbol = Player.player_list[@turn_order].symbol
-
       @turn_order += 1
       board.puts_display
       board.tie_check
       win_check(board)
-      puts "The game is currenly #{board.game_condition}"
       
       if @turn_order == Player.player_list.length
         @turn_order = 0
@@ -124,12 +125,10 @@ class Game
       puts "The game has ended in a tie"
     end
     
-    
-    
   end
     
   def requested_rows
-    puts "How many rows would you like? (There's a minimum of three and maximum of 26)"
+    puts "How many rows would you like? (There's a minimum of 3 and maximum of 26)"
 
     rows = gets.chomp.to_i
 
@@ -142,7 +141,7 @@ class Game
   end
 
   def requested_columns
-    puts "How many columns would you like? (There's a minimum of three and maximum of 99)"
+    puts "How many columns would you like? (There's a minimum of 3 and maximum of 99)"
 
     columns = gets.chomp.to_i
 
@@ -164,12 +163,10 @@ class Game
 
       puts "Please put a number that is greater than 3, and less than or equal to the highest number (between rows or columns)"
       
-      puts "Nope, you're hitting this one"
       winning_condition = gets.chomp.to_i
     end
 
     board.number_to_win = winning_condition
-    puts "you're hitting this condition"
   end
 
   def update_game_process(board)
@@ -179,7 +176,6 @@ class Game
       cell = board.cell_selection
     end
 
-  
     row = board.row_selection(cell[0])
     column = board.column_selection(cell[1])
 
@@ -199,11 +195,4 @@ class Game
     end
   end
 end
-
-
-
-
-# create_board(requested_rows,requested_columns)
-# winning_condition
-# game_start
 

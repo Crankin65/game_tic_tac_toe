@@ -229,14 +229,3 @@ class Cell
     false
   end
 end
-
-
-# game = Board.new(8,8)
-#       game.board[5][2] = "X"
-#       game.board[6][2] = "X"
-#       game.board[4][2] = "X"
-#       game.board[6][5] = "X"
-
-#       recent_move = Cell.new(6,2, game.board)
-#       recent_move.vertical_traversal
-#       puts "The recent move's vertical neighbor count is #{recent_move.vertical_neighbors}"

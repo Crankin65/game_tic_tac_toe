@@ -13,7 +13,6 @@ class Board
     board.puts_display
   end
   
-
   def game_array 
     Array.new(@number_of_rows).map do |row|
       Array.new(@number_of_columns)
@@ -39,7 +38,6 @@ class Board
         elsif cell == nil
           spacing_count += 1
           cell = ' '
-          #elsif cell.
         else
           cell
         end
@@ -72,12 +70,10 @@ class Board
         update_row = base - update_row 
         update_row
       else
-        puts "Sorry, that's not a valid option for the row2"
         false
       end
 
     else
-      puts "Sorry, that's #{row.ord} not a valid option for the row1"
       false
       
     end
@@ -85,19 +81,19 @@ class Board
   end
 
   def column_selection(column)
-    update_column = column.to_i - 1
-
-    if update_column >= @number_of_columns
-      puts "Sorry, that's not a valid option for the column"
+    if column.to_i == 0
       false
     end
 
-    update_column
 
-  end
+    update_column = column.to_i - 1
 
-  def symbol(symbol)
-    symbol
+    if (update_column <= @number_of_columns - 1) && (update_column >= 0)
+      update_column
+    else
+      false
+    end
+
   end
 
   def update_check(row,column)
@@ -113,6 +109,7 @@ class Board
     puts "What cell would you like to put your symbol?"
 
     response = $stdin.gets.chomp.split('')
+
     if response.length >= 3
      response[1] = response [1] + response[2]
     elsif
@@ -137,11 +134,11 @@ class Board
   end
   
   def requested_rows
-    puts "How many rows would you like? (There's a minimum of three and maximum of 26)"
+    puts "How many rows would you like? (There's a minimum of 3 and maximum of 26)"
   
     rows = gets.chomp.to_i
   
-    until (rows >= 3 && rows <= 26) && rows.integer?
+    until (rows >= 3 && rows <= 26) # && rows.integer?
       puts "Please enter a number that's greater than or equal to 3 and less than or equal to 26"
       rows = gets.chomp.to_i
     end
@@ -150,18 +147,17 @@ class Board
   end
 
   def requested_columns
-    puts "How many columns would you like? (There's a minimum of three and maximum of 99)"
+    puts "How many columns would you like? (There's a minimum of 3 and maximum of 99)"
   
     columns = gets.chomp.to_i
   
-    until (columns >= 3 && columns <= 99) && columns.integer?
+    until (columns >= 3 && columns <= 99) #&& columns.integer?
       puts "Please enter a nubmer greater than or equal to 3 and less than or equal to 99"
       columns = gets.chomp.to_i
     end
 
     columns
   end
-
 
 end
 

@@ -1,15 +1,11 @@
 class Player
-  attr_accessor :name, :symbol, :player_number
+  attr_accessor :name, :symbol
   @@player_list = []
 
   def initialize(name, symbol)
     @name = name
     @symbol = symbol
-    @player_number = 1
     @@player_list << self
-    @player_number = @@player_list.find_index do |player| 
-      player.name == @name
-    end + 1
   end
 
   def self.remove_one_player(delete_name)
