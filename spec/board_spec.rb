@@ -5,7 +5,7 @@ describe Board do
 
   describe "#display" do
 
-    it "returns the correct number of colums & rows"do 
+    it "returns the correct number of colums & rows 8x8 "do 
       game = Board.new(8,8)
       game.game_array
       expected_display = <<~TEXT 
@@ -18,6 +18,27 @@ describe Board do
       B| | | | | | | | |
       A| | | | | | | | |
         1 2 3 4 5 6 7 8 
+      TEXT
+      expect(game.display).to eql(expected_display)
+    end
+
+    it "returns the correct number of colums & rows with spacing 12 x 12"do 
+      game = Board.new(12,12)
+      game.game_array
+      expected_display = <<~TEXT 
+      L| | | | | | | | | |  |  |  |
+      K| | | | | | | | | |  |  |  |
+      J| | | | | | | | | |  |  |  |
+      I| | | | | | | | | |  |  |  |
+      H| | | | | | | | | |  |  |  |
+      G| | | | | | | | | |  |  |  |
+      F| | | | | | | | | |  |  |  |
+      E| | | | | | | | | |  |  |  |
+      D| | | | | | | | | |  |  |  |
+      C| | | | | | | | | |  |  |  |
+      B| | | | | | | | | |  |  |  |
+      A| | | | | | | | | |  |  |  |
+        1 2 3 4 5 6 7 8 9 10 11 12 
       TEXT
       expect(game.display).to eql(expected_display)
     end

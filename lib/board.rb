@@ -27,14 +27,19 @@ class Board
   def display
     number = 1
     starting_letter = 65 + (@number_of_rows - 1)
-
+    spacing_count = 0
 
     rows = board.map do |row|
       number -= 1
+      spacing_count = 0
      (starting_letter + number).chr + '|' + row.map do |cell| 
-
-        if cell == nil
+      
+        if cell == nil && spacing_count > 8
+          cell = '  '
+        elsif cell == nil
+          spacing_count += 1
           cell = ' '
+          #elsif cell.
         else
           cell
         end
