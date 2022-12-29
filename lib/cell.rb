@@ -66,7 +66,7 @@ class Cell
   end
 
   def left
-    if column < board[0].size
+    if column > 0 #0,0
       Cell.new(row, column - 1, board)
     end
   end
@@ -115,8 +115,8 @@ class Cell
   end
 
   def up_left
-    if row >= 0 && column < board[0].size 
-      Cell.new(row-1,column-1,board)
+    if row > 0 && column > 0 
+      Cell.new(row - 1,column - 1,board)
     end
   end
 
@@ -137,7 +137,7 @@ class Cell
   end
 
   def down_right
-    if row < board.size - 1
+    if row < board.size - 1 && column < board[0].size
       Cell.new(row + 1,column + 1,board)
     end
   end
@@ -164,7 +164,7 @@ class Cell
   end
 
   def up_right
-    if row >= 0 && column < board[0].size 
+    if row > 0 && column < board[0].size 
       Cell.new(row - 1,column + 1,board)
     end
   end
@@ -186,7 +186,7 @@ class Cell
   end
 
   def down_left
-    if row < board.size - 1
+    if row < board.size - 1 && column >= 0
       Cell.new(row + 1,column - 1,board)
     end
   end
@@ -230,12 +230,12 @@ class Cell
 end
 
 
-game = Board.new(8,8)
-      game.board[5][2] = "X"
-      game.board[6][2] = "X"
-      game.board[4][2] = "X"
-      game.board[6][5] = "X"
+# game = Board.new(8,8)
+#       game.board[5][2] = "X"
+#       game.board[6][2] = "X"
+#       game.board[4][2] = "X"
+#       game.board[6][5] = "X"
 
-      recent_move = Cell.new(6,2, game.board)
-      recent_move.vertical_traversal
-      puts "The recent move's vertical neighbor count is #{recent_move.vertical_neighbors}"
+#       recent_move = Cell.new(6,2, game.board)
+#       recent_move.vertical_traversal
+#       puts "The recent move's vertical neighbor count is #{recent_move.vertical_neighbors}"
