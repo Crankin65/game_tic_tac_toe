@@ -56,3 +56,11 @@ testing
   cell win
   player symbols,wins, number of players
 
+
+    # if 3 rows and 3 colummns
+    # [nil,nil,nil]
+    # [[nil,nil,nil], (0,0) (C,0) board.length = 3 65 + (board.length)3 - 1 67
+    # base = C.ord
+    # next is 
+    # [nil,nil,nil],  (1,0) (B,0) 66
+    # [nil,nil,nil]]  (2,0) (A,0) (A,1)

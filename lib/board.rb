@@ -4,21 +4,13 @@ class Board
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
     @number_of_columns = number_of_columns
-    @game_condition = active
+    @game_condition = "active"
   end
 
   def game_array 
     Array.new(@number_of_rows).map do |row|
       Array.new(@number_of_columns)
     end
-
-    # if 3 rows and 3 colummns
-    # [nil,nil,nil]
-    # [[nil,nil,nil], (0,0) (C,0) board.length = 3 65 + (board.length)3 - 1 67
-    # base = C.ord
-    # next is 
-    # [nil,nil,nil],  (1,0) (B,0) 66
-    # [nil,nil,nil]]  (2,0) (A,0) (A,1)
   end
 
   def board
@@ -57,7 +49,7 @@ class Board
 
     
 
-    until (response[0].ord >= 65 && response [0] <= 90) ||
+    until (response[0].ord >= 65 && response[0] <= 90) ||
       (response[0].ord >= 97 && response[0].ord <= 120)
       puts "Sorry, that's not a valid"
       reponse = $stdin.gets.chomp.split(' ')
@@ -92,8 +84,8 @@ class Board
   end
 
 
-  def update_method(row,column,symbol)
-    @board[row][column] = symbol
+  def update_method(row, column, symbol)
+    board[row][column] = symbol
   end
 
   def tie_check
@@ -119,8 +111,8 @@ class Board
     if number_row <= base
       update_row = base - number_row #67 - 65  = 2 72-65 = 7
 
-      if @board[update_row][update_column] == nil
-        @board[update_row][update_column] = symbol
+      if board[update_row][update_column] == nil
+        board[update_row][update_column] = symbol
       else
         puts "#{row}#{update_column} is taken"
       end
@@ -168,7 +160,7 @@ class Board
 
     until $winning_condition.integer? && ($winning_condition <= requested_columns || $winning_condition <= requested_rows) && $winning_condition >= 3
       $winning_condition
-    else
+
       puts "Please put a number that is greater than 3, and less than or equal to the highest number (between rows or columns)"
     end
   end
@@ -185,9 +177,13 @@ end
 
 game = Board.new(8,8)
 game.game_array
+game.update_method(4,4,"P")
+p game.puts_display
 
-game.update("A",1,"X")
-game.update("F",5,"X")
-game.puts_display
-game.update("L",5,"X")
+
+
+# game.update("A",1,"X")
+# game.update("F",5,"X")
+# game.puts_display
+# game.update("L",5,"X")
 
