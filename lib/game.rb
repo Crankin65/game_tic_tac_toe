@@ -8,6 +8,7 @@ class Game
   def initialize(name)
     @name = name
     @turn_order = 0
+    @recent_cell = nil
   end
 
   def create_player
@@ -100,21 +101,24 @@ class Game
 
       puts "It's #{Player.player_list[@turn_order].name}'s turn"
     
-      board.cell_selection(Player.player_list[@turn_order].symbol)
+      update_game_process(board)
+      
+
       recent_symbol = Player.player_list[@turn_order].symbol
 
       @turn_order += 1
       board.puts_display
-      puts "The game is currenly #{board.game_condition}"
       board.tie_check
-
+      win_check(board)
+      puts "The game is currenly #{board.game_condition}"
+      
       if @turn_order == Player.player_list.length
         @turn_order = 0
       end
       
     end
 
-    if board.game_condition == "done"
+    if board.game_condition == "win"
       puts "#{Player.player_list.find {|player| recent_symbol == player.symbol}.name} has won the game!"
     elsif board.game_condition == "tie"
       puts "The game has ended in a tie"
@@ -168,6 +172,32 @@ class Game
     puts "you're hitting this condition"
   end
 
+  def update_game_process(board)
+    cell = board.cell_selection
+
+    until board.row_selection(cell[0]) && board.column_selection(cell[1])
+      cell = board.cell_selection
+    end
+
+  
+    row = board.row_selection(cell[0])
+    column = board.column_selection(cell[1])
+
+    if board.update_check(row,column)
+      board.update_method(row,column,Player.player_list[@turn_order].symbol)
+      @recent_cell = Cell.new(row,column,board.board)
+    else
+      update_game_process(board)
+    end
+
+  
+  end
+    
+  def win_check(board)
+    if @recent_cell.won?(board.number_to_win)
+      board.game_condition = "win"
+    end
+  end
 end
 
 

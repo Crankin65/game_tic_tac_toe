@@ -42,7 +42,7 @@ describe Cell do
       # win_condition = double("win_condition", :win => 3)
 
       recent_move = Cell.new(6,2,game.board)
-      expect(recent_move.won?).to eql(true)
+      expect(recent_move.won?(3)).to eql(true)
     end
 
     it "checks horitzonal non-win" do
@@ -65,7 +65,7 @@ describe Cell do
       # win_condition = double("win_condition", :win => 3)
 
       recent_move = Cell.new(6,2,game.board)
-      expect(recent_move.won?).to eql(false)
+      expect(recent_move.won?(3)).to eql(false)
     end
 
     it "checks that a cell in the left column won't count additional neigbors" do 
@@ -116,7 +116,7 @@ describe Cell do
 
       recent_move = Cell.new(6,2, game.board)
       recent_move.vertical_traversal
-      expect(recent_move.won?).to eql(true)
+      expect(recent_move.won?(3)).to eql(true)
     end
 
     it "checks vertical non-win" do 
@@ -128,7 +128,7 @@ describe Cell do
       game.board[6][5] = "X"
 
       recent_move = Cell.new(6,2,game.board)
-      expect(recent_move.won?).to eql(false)
+      expect(recent_move.won?(3)).to eql(false)
     end
 
     it "checks that a cell in the top column won't count additional neigbors" do 
@@ -178,7 +178,7 @@ describe Cell do
       game.board[6][5] = "X"
 
       recent_move = Cell.new(6,4,game.board)
-      expect(recent_move.won?).to eql(true)
+      expect(recent_move.won?(3)).to eql(true)
     end
 
     it "checks diagonal left non-win" do
@@ -189,7 +189,7 @@ describe Cell do
       game.board[6][5] = "X"
 
       recent_move = Cell.new(4,2,game.board)
-      expect(recent_move.won?).to eql(false)
+      expect(recent_move.won?(3)).to eql(false)
     end
 
     it "checks that a cell in the top/left column won't count additional neigbors" do 
@@ -239,7 +239,7 @@ describe Cell do
       game.board[6][5] = "X"
 
       recent_move = Cell.new(4,4,game.board)
-      expect(recent_move.won?).to eql(true)
+      expect(recent_move.won?(3)).to eql(true)
     end
 
     it "checks diagonal left non-win" do
@@ -250,7 +250,7 @@ describe Cell do
       game.board[6][5] = "X"
 
       recent_move = Cell.new(6,2,game.board)
-      expect(recent_move.won?).to eql(false)
+      expect(recent_move.won?(3)).to eql(false)
     end
 
 

@@ -1,4 +1,5 @@
 require './lib/board'
+
 class Cell
   attr_reader :row, :column, :board, :vertical_neighbors, :horizontal_neighbors, :left_diagonal_neighbors, :right_diagonal_neighbors
 
@@ -17,7 +18,7 @@ class Cell
   end
 
   def down
-    if row < board.size - 1 #row 1, board.size = # of rows 
+    if row < board.size - 1 #row 4, board.size = # of rows #a1 = 4,0
       Cell.new(row + 1, column, board) #create new cell directly below current cell
     end
   end
@@ -214,16 +215,16 @@ class Cell
 
 
 
-  def won?
+  def won?(number_to_win)
     vertical_traversal
     horizontal_traversal
     diagonal_left_traversal
     diagonal_right_traversal
 
-    return true if vertical_neighbors >= ($winning_condition - 1)
-    return true if horizontal_neighbors >= ($winning_condition - 1 )
-    return true if left_diagonal_neighbors >= ($winning_condition - 1)
-    return true if right_diagonal_neighbors >= ($winning_condition - 1)
+    return true if vertical_neighbors >= (number_to_win - 1)
+    return true if horizontal_neighbors >= (number_to_win - 1 )
+    return true if left_diagonal_neighbors >= (number_to_win - 1)
+    return true if right_diagonal_neighbors >= (number_to_win - 1)
    
     false
   end
