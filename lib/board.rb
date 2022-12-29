@@ -1,12 +1,18 @@
 class Board
-  attr_accessor :rows, :columns, :number_of_rows, :number_of_columns, :winning_condition, :game_condition
+  attr_accessor :number_of_rows, :number_of_columns, :number_to_win, :game_condition
 
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
     @number_of_columns = number_of_columns
     @game_condition = "active"
-    $winning_condition = 3
+    @number_to_win = 0
   end
+
+  def create_board(rows,columns,board)
+    board = Board.new(rows ,columns)
+    board.puts_display
+  end
+  
 
   def game_array 
     Array.new(@number_of_rows).map do |row|
@@ -55,7 +61,7 @@ class Board
 
     until (response[0].ord >= 65 && response[0].ord <= 90) ||
       (response[0].ord >= 97 && response[0].ord <= 120)
-      puts "Sorry, that's not a valid option"
+      puts "Sorry, that's not a valid option for the row"
       reponse = $stdin.gets.chomp.split(' ')
     end
 
@@ -68,28 +74,29 @@ class Board
     end
 
     if update_row <= base
-      update_row = base - update_row # 
+      update_row = base - update_row  
 
       if board[update_row][update_column] == nil
         update_method(update_row, update_column, symbol)
-        recent_move = Cell.new(update_row, update_column ,@board)
-
-        if recent_move.won? 
-          @game_condition = "done"
-        end
-    
+       
       else
-        puts "#{response[0]}#{reponse[1]} is taken"
-        @game.cell_selection(Player.player_list[@turn_order].symbol)
+        puts "#{response[0]}#{response[1]} is taken"
+        cell_selection(symbol)
       end
 
     elsif (update_row > base) || (update_column > @number_of_columns)
       puts "There is no #{response[0]}#{response[1]} on this board, please try again"
-      cell_selection
+      cell_selection(symbol)
     end
     
    
   end
+
+ # recent_move = Cell.new(update_row, update_column, board)
+
+        # if recent_move.won? 
+        #   @game_condition = "done"
+        # end
 
 
   def update_method(row, column, symbol)
@@ -97,43 +104,45 @@ class Board
   end
 
   def tie_check
-    if @board.all? {|cell| cell != nil}
-      @game_condition = "tie"
-    end
-  end
-
-  def update(row, column, symbol)
-    base = @number_of_rows - 1 + 65 # 67 for C/ 72
-
-    number_row = row.ord
-    update_column = column - 1
-
-    if (number_row >= 65 && number_row <= 90)
-      number_row #A = 65
-    elsif (number_row >= 97 && number_row <= 120)
-      number_row = number_row - 32 # "a" = 97 - 32 = 65
-    else
-      number_row = nil
-    end
-
-    if number_row <= base
-      update_row = base - number_row #67 - 65  = 2 72-65 = 7
-
-      if board[update_row][update_column] == nil
-        board[update_row][update_column] = symbol
-      else
-        puts "#{row}#{update_column} is taken"
+    @board.each do |rows|
+      if rows.all? {|cell| cell != nil}
+        @game_condition = "tie"
       end
-
-    elsif (number_row > base) || (update_column > @number_of_columns)
-      puts "There is no #{row}#{update_column} on this board, please try again"
     end
-
-    if @board.none? {|cell| cell = nil}
-      @game_condition = "tie"
-    end
-    
   end
+
+  # def update(row, column, symbol)
+  #   base = @number_of_rows - 1 + 65 # 67 for C/ 72
+
+  #   number_row = row.ord
+  #   update_column = column - 1
+
+  #   if (number_row >= 65 && number_row <= 90)
+  #     number_row #A = 65
+  #   elsif (number_row >= 97 && number_row <= 120)
+  #     number_row = number_row - 32 # "a" = 97 - 32 = 65
+  #   else
+  #     number_row = nil
+  #   end
+
+  #   if number_row <= base
+  #     update_row = base - number_row #67 - 65  = 2 72-65 = 7
+
+  #     if board[update_row][update_column] == nil
+  #       board[update_row][update_column] = symbol
+  #     else
+  #       puts "#{row}#{update_column} is taken"
+  #     end
+
+  #   elsif (number_row > base) || (update_column > @number_of_columns)
+  #     puts "There is no #{row}#{update_column} on this board, please try again"
+  #   end
+
+  #   if @board.none? {|cell| cell = nil}
+  #     @game_condition = "tie"
+  #   end
+    
+  # end
   
   def requested_rows
     puts "How many rows would you like? (There's a minimum of three and maximum of 26)"
@@ -161,24 +170,7 @@ class Board
     columns
   end
 
-  def winning_condition
-    puts "How many in a row will win the game? The minimum is 3. The maximum is the number of rows or columns you have (the highest of the two)"
-
-    winning_conidition = gets.chomp.to_i
-
-    until winning_condition.integer? && (winning_condition <= requested_columns || winning_condition <= requested_rows) && winning_condition >= 3
-
-      puts "Please put a number that is greater than 3, and less than or equal to the highest number (between rows or columns)"
-    end
-
-    $winning_condition = winning_condition
-  end
-
-  def create_board(rows,columns)
-    @game = Board.new(rows ,columns)
-    @game.puts_display
-  end
-  
+ 
 
 end
 

@@ -23,7 +23,6 @@ describe Player do
   # end
 
   describe "#name" do
-
     it "returns the name of the player" do
       expect(@player_one.name).to eql("Sam")
     end
@@ -57,36 +56,36 @@ describe Player do
 
  
 
-  describe "#create_player" do
-    before do 
-      # io_obj = double
-      # expect(subject)
-      #   .to receive (:gets)
-      #   .and_return(io_obj)
-      #   .twic:error
-      # expect(io_obj)
-      #   .to receive(:chomp)
-      #   .and_return ("Castiel")
-      # expect(io_obj)
-      #   .to receive(:chomp)
-      #   .and_return("A")
+  # describe "#create_player" do
+  #   before do 
+  #     # io_obj = double
+  #     # expect(subject)
+  #     #   .to receive (:gets)
+  #     #   .and_return(io_obj)
+  #     #   .twic:error
+  #     # expect(io_obj)
+  #     #   .to receive(:chomp)
+  #     #   .and_return ("Castiel")
+  #     # expect(io_obj)
+  #     #   .to receive(:chomp)
+  #     #   .and_return("A")
 
 
-      player_name = double("player_name")
-      allow($stdin).to receive(:gets).and_return(player_name)
-      expect(player_name).to receive(:chomp).and_return("Castiel")
+  #     player_name = double("player_name")
+  #     allow($stdin).to receive(:gets).and_return(player_name)
+  #     expect(player_name).to receive(:chomp).and_return("Castiel")
 
-      player_symbol = double("player_symbol")
-      allow($stdin).to receive(:gets).and_return(player_symbol)
-      expect(player_symbol).to receive(:chomp).and_return("A")
-    end
+  #     player_symbol = double("player_symbol")
+  #     allow($stdin).to receive(:gets).and_return(player_symbol)
+  #     expect(player_symbol).to receive(:chomp).and_return("A")
+  #   end
 
-    it "asks for player's name and player's symbol" do
+  #   it "asks for player's name and player's symbol" do
 
-      Player.create_player
+  #     Player.create_player
 
-    expect(Player.player_list[2].name).to eql("Castiel")
-    end
+  #   expect(Player.player_list[2].name).to eql("Castiel")
+  #   end
   end
 
 end

@@ -76,6 +76,15 @@ testing
         [[ ],[ ],[ ],[ ],[ ],[ ],[ ],[ ]], #7,0
       ]
 
+    down [row +1]
 
+    up row -1
+    0 row >= board.size
+    if 7 <= board.size -1 
       board.size = number of rows 
       board[0].size - number of columns
+
+
+Final to-dos
+= create game class
+-create play as main file
