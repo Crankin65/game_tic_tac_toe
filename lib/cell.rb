@@ -1,3 +1,4 @@
+require './lib/board'
 class Cell
   attr_reader :row, :column, :board, :vertical_neighbors, :horizontal_neighbors, :left_diagonal_neighbors, :right_diagonal_neighbors
 
@@ -15,12 +16,8 @@ class Cell
     @board[row][column]
   end
 
-  def winning_number_in_a_row 
-    $winning_number_in_a_row ||= 3
-  end
-
   def down
-    if row < board.size - 1 #row 1, board.size = # of rows
+    if row < board.size - 1 #row 1, board.size = # of rows 
       Cell.new(row + 1, column, board) #create new cell directly below current cell
     end
   end
@@ -42,7 +39,7 @@ class Cell
   end
 
   def up 
-    if row > board.size - 1
+    if row >= 0  #row [6] size is 8
       Cell.new(row - 1, column, board)
     end
   end
@@ -223,10 +220,22 @@ class Cell
     diagonal_left_traversal
     diagonal_right_traversal
 
-    return true if vertical_neighbors >= $winning_number_in_a_row 
-    return true if horizontal_neighbors >= $winning_number_in_a_row
-    return true if left_diagonal_neighbors >= $winning_number_in_a_row
-    return true if right_diagonal_neighbors >= $winning_number_in_a_row
+    return true if vertical_neighbors >= ($winning_condition - 1)
+    return true if horizontal_neighbors >= ($winning_condition - 1 )
+    return true if left_diagonal_neighbors >= ($winning_condition - 1)
+    return true if right_diagonal_neighbors >= ($winning_condition - 1)
    
     false
   end
+end
+
+
+game = Board.new(8,8)
+      game.board[5][2] = "X"
+      game.board[6][2] = "X"
+      game.board[4][2] = "X"
+      game.board[6][5] = "X"
+
+      recent_move = Cell.new(6,2, game.board)
+      recent_move.vertical_traversal
+      puts "The recent move's vertical neighbor count is #{recent_move.vertical_neighbors}"

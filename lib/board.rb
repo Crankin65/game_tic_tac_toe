@@ -1,10 +1,11 @@
 class Board
-  attr_accessor :rows, :columns, :number_of_rows, :number_of_columns
+  attr_accessor :rows, :columns, :number_of_rows, :number_of_columns, :winning_condition
 
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
     @number_of_columns = number_of_columns
     @game_condition = "active"
+    $winning_condition = 3
   end
 
   def game_array 
@@ -44,39 +45,40 @@ class Board
     puts display
   end
 
-  def cell_selection 
+  def cell_selection(symbol)
     puts "What cell would you like to put your symbol?"
 
-    
+    response = $stdin.gets.chomp.split('')
+    if response.length >= 3
+      # response[]
+    end
 
-    until (response[0].ord >= 65 && response[0] <= 90) ||
+    until (response[0].ord >= 65 && response[0].ord <= 90) ||
       (response[0].ord >= 97 && response[0].ord <= 120)
-      puts "Sorry, that's not a valid"
+      puts "Sorry, that's not a valid option"
       reponse = $stdin.gets.chomp.split(' ')
     end
 
-    base = @number_of_rows - 1 + 65
+    base = @number_of_rows - 1 + 65 #67 C
     update_row = response[0].ord
-    update_column = response[1] - 1
+    update_column = response[1].to_i - 1
 
-    if (update_row >= 65 && update_row <= 90)
-     update_row #A = 65
-    elsif (update_row >= 97 && update_row <= 120)
+    if (update_row >= 97 && update_row <= 120)
       update_row = update_row - 32 # "a" = 97 - 32 = 65
     end
 
     if update_row <= base
-      update_row = base - update_row
+      update_row = base - update_row # 
 
-      if @board[update_row][update_column] == nil
+      if board[update_row][update_column] == nil
         update_method(update_row, update_column, symbol)
       else
         puts "#{row}#{update_column} is taken"
         cell_selection
       end
 
-    elsif (number_row > base) || (update_column > @number_of_columns)
-      puts "There is no #{row}#{update_column} on this board, please try again"
+    elsif (update_row > base) || (update_column > @number_of_columns)
+      puts "There is no #{response[0]}#{response[1]} on this board, please try again"
       cell_selection
     end
     
@@ -128,12 +130,12 @@ class Board
   end
   
   def requested_rows
-    puts "How many rows would you like? (There's a minimum of three)"
+    puts "How many rows would you like? (There's a minimum of three and maximum of 26)"
   
     rows = gets.chomp.to_i
   
-    until rows >= 3 && rows.integer?
-      puts "Please enter a number that's greater than or equal to 3"
+    until (rows >= 3 && rows <= 26) && rows.integer?
+      puts "Please enter a number that's greater than or equal to 3 and less than or equal to 26"
       rows = gets.chomp.to_i
     end
 
@@ -141,12 +143,12 @@ class Board
   end
 
   def requested_columns
-    puts "How many columns would you like? (There's a minimum of three)"
+    puts "How many columns would you like? (There's a minimum of three and maximum of 99)"
   
     columns = gets.chomp.to_i
   
-    until columns >= 3 && columns.integer?
-      puts "Please enter a nubmer greater than or equal to 3"
+    until (columns >= 3 && columns <= 99) && columns.integer?
+      puts "Please enter a nubmer greater than or equal to 3 and less than or equal to 99"
       columns = gets.chomp.to_i
     end
 
@@ -154,15 +156,16 @@ class Board
   end
 
   def winning_condition
-    puts "How many in a row will win the game? The minimum is 3. The maximum is the number of rows or columns you have (the highest of either)"
+    puts "How many in a row will win the game? The minimum is 3. The maximum is the number of rows or columns you have (the highest of the two)"
 
-    $winning_conidition = gets.chomp.to_i
+    winning_conidition = gets.chomp.to_i
 
-    until $winning_condition.integer? && ($winning_condition <= requested_columns || $winning_condition <= requested_rows) && $winning_condition >= 3
-      $winning_condition
+    until winning_condition.integer? && (winning_condition <= requested_columns || winning_condition <= requested_rows) && winning_condition >= 3
 
       puts "Please put a number that is greater than 3, and less than or equal to the highest number (between rows or columns)"
     end
+
+    $winning_condition = winning_condition
   end
 
   def create_board
@@ -175,10 +178,10 @@ class Board
 
 end
 
-game = Board.new(8,8)
-game.game_array
-game.update_method(4,4,"P")
-p game.puts_display
+# game = Board.new(8,8)
+# game.game_array
+# game.cell_selection("X")
+# p game.board[6][7]
 
 
 

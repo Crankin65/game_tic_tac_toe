@@ -1,4 +1,5 @@
 require './lib/board'
+require 'stringio'
 
 describe Board do
 
@@ -40,10 +41,6 @@ describe Board do
 
   end
 
-  
-  # rows
-  #random positions
-  #number of oclumns 
 
   describe "#update" do
     it "updates cell A4 to 'X' " do
@@ -57,7 +54,16 @@ describe Board do
       game.update_method(2, 7, "O")
       expect(game.board[2][7]).to eql("O")
     end
+    
 
   end
 
+  describe "#cell_selection" do 
+    it "updates cell B7 based on cell selection from user" do
+      game = Board.new(8,8)
+      game.cell_selection("X")
+      expect(game.board[6][6]).to eql("X")
+    end
+  end
+      
 end

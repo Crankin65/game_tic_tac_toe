@@ -101,7 +101,7 @@ def turn
   while turn_order <= Player.player_list.length && (won? == false || @game_condition = "tie")
     puts "It's #{Player.player_list[turn_order].name}'s turn"
    
-    cell_selection
+    cell_selection(Player.player_list[turn_order].symbol)
 
     @turn_order += 1
 
