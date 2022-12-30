@@ -32,11 +32,11 @@ class Board
       number -= 1
       spacing_count = 0
      (starting_letter + number).chr + '|' + row.map do |cell| 
-      
-        if cell == nil && spacing_count > 8
+      spacing_count += 1
+
+        if cell == nil && spacing_count > 9
           cell = '  '
         elsif cell == nil
-          spacing_count += 1
           cell = ' '
         else
           cell
@@ -75,7 +75,7 @@ class Board
     else
       false
     end
-    
+
   end
 
   def column_selection(column)
@@ -119,7 +119,11 @@ class Board
   end
 
   def update(row, column, symbol)
-    board[row][column] = symbol
+    if column < 9
+      board[row][column] = symbol
+    else 
+      board[row][column] = symbol + " "
+    end
   end
 
   def tie_check
