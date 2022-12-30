@@ -39,7 +39,7 @@ class Board
         elsif cell == nil
           cell = ' '
         else
-          cell
+          cell + ' '
         end
       end.join('|') + "|"
     end
@@ -119,11 +119,7 @@ class Board
   end
 
   def update(row, column, symbol)
-    if column < 9
       board[row][column] = symbol
-    else 
-      board[row][column] = symbol + " "
-    end
   end
 
   def tie_check
@@ -162,3 +158,5 @@ class Board
 
 end
 
+game = Board.new(20,20)
+game.display
