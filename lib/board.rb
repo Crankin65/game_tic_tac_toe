@@ -55,7 +55,6 @@ class Board
   end
 
   def row_selection(row)
-
     if ((row.ord >= 65 && row.ord <= 90) ||
       (row.ord >= 97 && row.ord <= 122) )
     
@@ -75,16 +74,14 @@ class Board
 
     else
       false
-      
     end
-
+    
   end
 
   def column_selection(column)
     if column.to_i == 0
       false
     end
-
 
     update_column = column.to_i - 1
 
@@ -121,7 +118,7 @@ class Board
     response
   end
 
-  def update_method(row, column, symbol)
+  def update(row, column, symbol)
     board[row][column] = symbol
   end
 

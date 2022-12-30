@@ -66,23 +66,34 @@ describe Board do
   describe "#update" do
     it "updates cell A4 to 'X' " do
       game = Board.new(8,8)
-      game.update_method(7, 4, "X")
+      game.update(7, 4, "X")
       expect(game.board[7][4]).to eql("X")
     end
   
     it "udpates cell f7 to 'O' " do
       game = Board.new(8,8)
-      game.update_method(2, 7, "O")
+      game.update(2, 7, "O")
       expect(game.board[2][7]).to eql("O")
     end
-    
 
+    it "doesn't update cell L9 to 'L' (Row) " do
+      game= Board.new(8,8)
+      expect(game.row_selection("L")).to eql(false)
+    end
+
+    it "doesn't update cell L9 to 'L' (Row) " do
+      game= Board.new(8,8)
+      expect(game.column_selection(9)).to eql(false)
+    end
+    
   end
 
   describe "#cell_selection" do 
     it "updates cell B7 based on cell selection from user" do
       game = Board.new(8,8)
-      game.cell_selection("X")
+      row = game.row_selection("B")
+      column = game.column_selection(7)
+      game.update(row, column,"X")
       expect(game.board[6][6]).to eql("X")
     end
   end

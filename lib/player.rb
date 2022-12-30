@@ -12,7 +12,6 @@ class Player
     index_to_delete = @@player_list.find_index do |player|
       player.name == delete_name
     end
-
     @@player_list.delete_at(index_to_delete)
   end
 
@@ -39,13 +38,4 @@ class Player
     name_array
   end
 
-
 end
-
-# player_one = Player.new("bob", "X")
-# player_two = Player.new("mary", "O")
-# # player_three = Player.new("Suzy", "P")
-# # Player.remove_one_player("mary")
-# # Player.reset_players
-# # Player.player_names
-# p Player.player_names

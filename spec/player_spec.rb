@@ -1,26 +1,11 @@
 require './lib/player'
-require 'stringio'
-
-# def new_player_name
-#   $stdin.gets.chomp
-# end
-
-# def new_player_symbol
-#   $stdin.gets.chomp
-# end
 
 describe Player do
 
   before :all do
     @player_one = Player.new("Sam","X")
     @player_two = Player.new("Dean", "O")
-    # $stdin = StringIO.new("Castiel")
-    # $stdin = StringIO.new("A")
   end
-
-  # after do 
-  #   $stdin = STDIN
-  # end
 
   describe "#name" do
     it "returns the name of the player" do
@@ -54,44 +39,4 @@ describe Player do
     end
   end
 
- 
-
-  # describe "#create_player" do
-  #   before do 
-  #     # io_obj = double
-  #     # expect(subject)
-  #     #   .to receive (:gets)
-  #     #   .and_return(io_obj)
-  #     #   .twic:error
-  #     # expect(io_obj)
-  #     #   .to receive(:chomp)
-  #     #   .and_return ("Castiel")
-  #     # expect(io_obj)
-  #     #   .to receive(:chomp)
-  #     #   .and_return("A")
-
-
-  #     player_name = double("player_name")
-  #     allow($stdin).to receive(:gets).and_return(player_name)
-  #     expect(player_name).to receive(:chomp).and_return("Castiel")
-
-  #     player_symbol = double("player_symbol")
-  #     allow($stdin).to receive(:gets).and_return(player_symbol)
-  #     expect(player_symbol).to receive(:chomp).and_return("A")
-  #   end
-
-  #   it "asks for player's name and player's symbol" do
-
-  #     Player.create_player
-
-  #   expect(Player.player_list[2].name).to eql("Castiel")
-  #   end
-  end
-
 end
-
-#Edge cases
-# - Duplicate names
-# Duplicate symbols
-# Require minimum of two players
-# What cases would a double be appropriate? 

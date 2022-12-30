@@ -23,7 +23,7 @@ class Game
       player_symbol = $stdin.gets.chomp
     end
 
-      Player.new(player_name, player_symbol)
+    Player.new(player_name, player_symbol)
 
   end
 
@@ -180,7 +180,7 @@ class Game
     column = board.column_selection(cell[1])
 
     if board.update_check(row,column)
-      board.update_method(row,column,Player.player_list[@turn_order].symbol)
+      board.update(row,column,Player.player_list[@turn_order].symbol)
       @recent_cell = Cell.new(row,column,board.board)
     else
       update_game_process(board)
@@ -194,5 +194,6 @@ class Game
       board.game_condition = "win"
     end
   end
+
 end
 
