@@ -76,6 +76,12 @@ describe Board do
       expect(game.board[2][7]).to eql("O")
     end
 
+    describe "when out of bounds" do 
+      #Update out of bounds tests to mimic tests on line 67
+      #Condition should be how board reacts 
+  
+    end
+
     it "doesn't update cell L9 to 'L' (Row) " do
       game= Board.new(8,8)
       expect(game.row_selection("L")).to eql(false)
