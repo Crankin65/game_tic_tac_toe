@@ -1,5 +1,6 @@
 class Board
-  attr_accessor :number_of_rows, :number_of_columns, :number_to_win, :game_condition
+  attr_reader :number_of_rows, :number_of_columns
+  attr_accessor :number_to_win, :game_condition
 
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
