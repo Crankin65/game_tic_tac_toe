@@ -1,3 +1,5 @@
+require './lib/InputPrompt'
+
 class Board
   attr_reader :number_of_rows, :number_of_columns
   attr_accessor :number_to_win, :game_condition
@@ -95,12 +97,10 @@ class Board
   end
 
   def cell_selection
-    puts 'What cell would you like to put your symbol?'
-
-    response = $stdin.gets.chomp.split('')
+    response = InputPrompt.ask('What cell would you like to put your symbol?').split('')
 
     if response.length >= 3
-      response[1] = response [1] + response[2]
+      response[1] = response[1] + response[2]
     elsif response.length <= 1
       puts 'Please enter an available cell'
       cell_selection
@@ -120,13 +120,10 @@ class Board
   end
 
   def requested_rows
-    puts "How many rows would you like? (There's a minimum of 3 and maximum of 26)"
+    rows = InputPrompt.ask("How many rows would you like? (There's a minimum of 3 and maximum of 26)").to_i
 
-    rows = gets.chomp.to_i
-
-    until rows >= 3 && rows <= 26 # && rows.integer?
-      puts "Please enter a number that's greater than or equal to 3 and less than or equal to 26"
-      rows = gets.chomp.to_i
+    until rows >= 3 && rows <= 26
+      rows = InputPrompt.ask("Please enter a number that's greater than or equal to 3 and less than or equal to 26").to_i
     end
 
     rows
@@ -138,10 +135,13 @@ class Board
     columns = gets.chomp.to_i
 
     until columns >= 3 && columns <= 99 # && columns.integer?
-      puts 'Please enter a nubmer greater than or equal to 3 and less than or equal to 99'
+      puts 'Please enter a number greater than or equal to 3 and less than or equal to 99'
       columns = gets.chomp.to_i
     end
 
     columns
   end
 end
+
+# game = Board.new(5, 5)
+# p new_rows = game.requested_rows
