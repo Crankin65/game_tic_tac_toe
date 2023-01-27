@@ -1,5 +1,6 @@
 class Board
-  attr_accessor :number_of_rows, :number_of_columns, :number_to_win, :game_condition
+  attr_reader :number_of_rows, :number_of_columns
+  attr_accessor :number_to_win, :game_condition
 
   def initialize(number_of_rows, number_of_columns)
     @number_of_rows = number_of_rows
@@ -8,41 +9,8 @@ class Board
     @number_to_win = 0
   end
 
-  def game_array
-    Array.new(@number_of_rows).map do |_row|
-      Array.new(@number_of_columns)
-    end
-  end
-
   def board
     @board ||= game_array
-  end
-
-  def display
-    number = 1
-    starting_letter = 65 + (@number_of_rows - 1)
-    spacing_count = 0
-
-    rows = board.map do |row|
-      number -= 1
-      spacing_count = 0
-      (starting_letter + number).chr + '|' + row.map do |cell|
-                                               spacing_count += 1
-
-                                               if cell.nil? && spacing_count > 9
-                                                 cell = '  '
-                                               elsif cell.nil?
-                                                 cell = ' '
-                                               else
-                                                 cell + ' '
-                                               end
-                                             end.join('|') + '|'
-    end
-
-    number_row = '  ' +
-                 Array.new(@number_of_columns).map.with_index { |_, i| i + 1 }.join(' ') + " \n"
-
-    (rows + [number_row]).join("\n")
   end
 
   def puts_display
@@ -50,19 +18,16 @@ class Board
   end
 
   def row_selection(row)
-    if (row.ord >= 65 && row.ord <= 90) ||
-       (row.ord >= 97 && row.ord <= 122)
-
-      base = @number_of_rows - 1 + 65 # 67 C
+    if (row.ord >= 65 && row.ord <= 90) || (row.ord >= 97 && row.ord <= 122)
+      base = @number_of_rows - 1 + 65
       update_row = row.ord
 
       if update_row >= 97 && update_row <= 120
-        update_row -= 32 # "a" = 97 - 32 = 65
+        update_row -= 32
       end
 
       if update_row <= base
         base - update_row
-
       else
         false
       end
@@ -73,15 +38,17 @@ class Board
   end
 
   def column_selection(column)
-    false if column.to_i == 0
+    if column.to_i.zero?
+      update_column = column.to_i - 1
 
-    update_column = column.to_i - 1
+      if (update_column <= @number_of_columns - 1) && (update_column >= 0)
+        update_column
+      else
+        false
+      end
 
-    if (update_column <= @number_of_columns - 1) && (update_column >= 0)
-      update_column
-    else
-      false
     end
+
   end
 
   def update_check(row, column)
@@ -95,7 +62,6 @@ class Board
 
   def cell_selection
     puts 'What cell would you like to put your symbol?'
-
     response = $stdin.gets.chomp.split('')
 
     if response.length >= 3
@@ -120,7 +86,6 @@ class Board
 
   def requested_rows
     puts "How many rows would you like? (There's a minimum of 3 and maximum of 26)"
-
     rows = gets.chomp.to_i
 
     until rows >= 3 && rows <= 26 # && rows.integer?
@@ -133,7 +98,6 @@ class Board
 
   def requested_columns
     puts "How many columns would you like? (There's a minimum of 3 and maximum of 99)"
-
     columns = gets.chomp.to_i
 
     until columns >= 3 && columns <= 99 # && columns.integer?
@@ -143,4 +107,33 @@ class Board
 
     columns
   end
+
+  private
+
+  def game_array
+    Array.new(@number_of_rows).map do |_row|
+      Array.new(@number_of_columns)
+    end
+  end
+
+  def display
+    number = 1
+    starting_letter = 65 + (@number_of_rows - 1)
+
+    rows = board.map do |row|
+      number -= 1
+      (starting_letter + number).chr + '|' + row.map do |cell|
+        if cell.nil?
+          cell = ' '
+        else
+          cell
+        end
+      end.join('|') + '|'
+    end
+
+    number_row = '  ' +
+      Array.new(@number_of_columns).map.with_index { |_, i| i + 1 }.join(' ') + " \n"
+    (rows + [number_row]).join("\n")
+  end
+
 end
