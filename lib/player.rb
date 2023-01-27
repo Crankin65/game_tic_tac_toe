@@ -1,41 +1,9 @@
 class Player
-  attr_accessor :name, :symbol
-  @@player_list = []
+  attr_reader :name, :symbol
 
   def initialize(name, symbol)
     @name = name
     @symbol = symbol
-    @@player_list << self
-  end
-
-  def self.remove_one_player(delete_name)
-    index_to_delete = @@player_list.find_index do |player|
-      player.name == delete_name
-    end
-    @@player_list.delete_at(index_to_delete)
-  end
-
-  def self.reset_players
-    @@player_list = []
-  end
-
-  def self.player_list
-    @@player_list
-  end
-
-  def self.player_names_and_symbols
-    self.player_list.each do |player|
-      puts " #{player.name} is playing and is using '#{player.symbol}' as their symbol." 
-      puts "\n"
-    end
-  end
-  
-  def self.player_names
-    name_array = []
-    self.player_list.map do |player|
-      name_array << player.name
-    end
-    name_array
   end
 
 end

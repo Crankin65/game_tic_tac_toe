@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/player'
 require './lib/cell'
+require './lib/playerlist'
 
 class Game
   attr_accessor :name
@@ -9,6 +10,7 @@ class Game
     @name = name
     @turn_order = 0
     @recent_cell = nil
+    @player_list = Playerlist.new
   end
 
   def create_player
@@ -18,8 +20,7 @@ class Game
     until player_symbol.length == 1
       player_symbol = InputPrompt.ask('What symbol will you play with? (We recommend a single symbol)')
     end
-
-    Player.new(player_name, player_symbol)
+    @player_list.add_player(Player.new(player_name, player_symbol))
   end
 
   def add_players
